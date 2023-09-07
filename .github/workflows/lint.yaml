@@ -1,0 +1,24 @@
+name: Lint and Test
+on:
+  pull_request: {}
+  push:
+    branches: [main]
+jobs:
+  lint:
+    name: Lint and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cache
+        uses: actions/setup-node@v3
+        with:
+          cache: "pnpm"
+      - name: Install dependencies
+        run: "pnpm install"
+      - name: Prettier
+        run: "yarn run prettier:check"
+      - name: Lint
+        run: "yarn run lint"
+      - name: Test
+        run: "yarn run test"
