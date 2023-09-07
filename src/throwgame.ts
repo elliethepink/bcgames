@@ -100,8 +100,9 @@ class ThrowGame {
     }
 
     onEmote = (senderCharacter, senderData, msg) => {
-        const matchesThrow =
-            /.*throws a (\w+) at (\w+)(?:'s (\w+))?.*/.exec(msg.Content);
+        const matchesThrow = /.*throws a (\w+) at (\w+)(?:'s (\w+))?.*/.exec(
+            msg.Content
+        );
         const matchesBucketGive =
             /.*(?:gives|hands) .*? bucket .*?(?:of (\w+))?.*to (\w+)/.exec(
                 msg.Content
@@ -294,8 +295,12 @@ class ThrowGame {
                     }!`
                 );
             } else if (roll >= hitDifficulty) {
-                if (isPilloried(targetCharacter) && this.bot.randInt(100) < 20) {
-                    const splatterWhere = this.bot.randInt(100) > 60 ? "face" : "body";
+                if (
+                    isPilloried(targetCharacter) &&
+                    this.bot.randInt(100) < 20
+                ) {
+                    const splatterWhere =
+                        this.bot.randInt(100) > 60 ? "face" : "body";
                     this.bot.sendEmote(
                         `${publicName(
                             senderCharacter
@@ -364,7 +369,9 @@ class ThrowGame {
                 )} has no bucket. What is a life without a bucket?`
             );
         } else if (senderData.bucket.length === 0) {
-            this.bot.sendEmote(`${publicName(senderCharacter)}'s bucket is empty.`);
+            this.bot.sendEmote(
+                `${publicName(senderCharacter)}'s bucket is empty.`
+            );
         } else {
             this.bot.sendEmote(
                 `${publicName(
@@ -494,7 +501,9 @@ class ThrowGame {
 
     maybeSendThrowSummary(character, characterData) {
         if (totalThrows(characterData) === 0) {
-            this.bot.sendEmote(`${publicName(character)} hasn't thrown anything yet.`);
+            this.bot.sendEmote(
+                `${publicName(character)} hasn't thrown anything yet.`
+            );
             return;
         }
 
@@ -505,7 +514,9 @@ class ThrowGame {
 
     sendThrowSummary(character, characterData) {
         if (totalThrows(characterData) === 0) {
-            this.bot.sendEmote(`${publicName(character)} hasn't thrown anything yet.`);
+            this.bot.sendEmote(
+                `${publicName(character)} hasn't thrown anything yet.`
+            );
             return;
         }
 
@@ -513,9 +524,9 @@ class ThrowGame {
             (characterData.hits / totalThrows(characterData)) * 100
         );
         this.bot.sendEmote(
-            `${publicName(character)} has made ${
-                characterData.hits
-            } shot${characterData.hits > 1 ? 's' : ''} on target with an accuracy of ${accuracy}%.`
+            `${publicName(character)} has made ${characterData.hits} shot${
+                characterData.hits > 1 ? "s" : ""
+            } on target with an accuracy of ${accuracy}%.`
         );
     }
 }

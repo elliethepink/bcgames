@@ -3,7 +3,7 @@ let bot: Bot;
 let allDares: string[];
 let unusedDares: string[];
 
-function loadDares():void {
+function loadDares(): void {
     let result;
 
     result = localStorage.getItem("dares");
@@ -32,7 +32,7 @@ function saveDares() {
     localStorage.setItem("unusedDares", JSON.stringify(unusedDares));
 }
 
-function dareSummary():string {
+function dareSummary(): string {
     return `${unusedDares.length} dares remain out of ${allDares.length} total.`;
 }
 
@@ -49,7 +49,11 @@ const onDare = async (senderCharacter, senderData, args) => {
                 return;
             }
             addDare(args.slice(1).join(" "));
-            bot.sendEmote(`Dare saved, thanks ${CharacterNickname(senderCharacter)}! ${dareSummary()}`);
+            bot.sendEmote(
+                `Dare saved, thanks ${CharacterNickname(
+                    senderCharacter
+                )}! ${dareSummary()}`
+            );
 
             break;
         case "draw":
@@ -57,12 +61,18 @@ const onDare = async (senderCharacter, senderData, args) => {
                 bot.sendEmote(`No more dares left!`);
                 return;
             }
-            bot.sendEmote(`${CharacterNickname(senderCharacter)} draws a dare card...`);
+            bot.sendEmote(
+                `${CharacterNickname(senderCharacter)} draws a dare card...`
+            );
             await bot.waitSeconds(2);
             const n = bot.randInt(unusedDares.length);
             const dare = unusedDares[n];
             unusedDares.splice(n, 1);
-            bot.sendEmote(`${CharacterNickname(senderCharacter)} draws: ${dare}\n${dareSummary()}`);
+            bot.sendEmote(
+                `${CharacterNickname(
+                    senderCharacter
+                )} draws: ${dare}\n${dareSummary()}`
+            );
             break;
         case "reset":
             unusedDares = Array.from(allDares);
